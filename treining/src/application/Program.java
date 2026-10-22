@@ -1,42 +1,82 @@
 package application;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
-import classesConcretas.PagamentoPaypal;
-import entities.Parcelas;
+import entities.Aluno;
+import entities.Curso;
 
 public class Program {
 	public static void main(String[] args) {
 		Scanner entrada = new Scanner(System.in);
-		DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		System.out.println("Entre com os dados do contrato: ");
-
-		System.out.print("Número: ");
-		int numeroContrato = entrada.nextInt();
+		
+		System.out.println("Quantos anlunos para o curso A?: ");
+		int n = entrada.nextInt();
 		entrada.nextLine();
-
-		System.out.print("Data: ");
-		String dataf = entrada.nextLine();
-		LocalDate data = LocalDate.parse(dataf, fmt1);
-
-		System.out.print("Valor do contrato: ");
-		double valor = entrada.nextDouble();
-		entrada.nextLine();
-
-		System.out.print("Digite o número de parcelas: ");
-		int parcelas = entrada.nextInt();
-		entrada.nextLine();
-
-		Parcelas parcela = new Parcelas(data, valor, parcelas);
-		PagamentoPaypal paypal = new PagamentoPaypal();
-
-		System.out.println("Parcelas:");
-		double[] valores = paypal.pagar(parcela.valorParcelas());
-		for (int i = 0; i < parcela.valorParcelas().length; i++) {
-			System.out.println(parcela.dataParcela()[i] + " - " + valores[i]);
+		
+		Set<Aluno> alunos = new HashSet<>();
+		Set<Curso> setCursoA = new HashSet<>();
+		for(int i = 0; i < n; i++) {
+			System.out.println("Aluno " + (i + 1));
+			int al = entrada.nextInt();
+			entrada.nextLine();
+			Aluno aluno = new Aluno(al);
+			alunos.add(aluno);
+			
+			Curso cursoA = new Curso(aluno);
+			setCursoA.add(cursoA);
 		}
+
+		System.out.println("Quantos anlunos para o curso B?: ");
+	    n = entrada.nextInt();
+		entrada.nextLine();
+		
+		Set<Curso> setCursoB = new HashSet<>();
+		for(int i = 0; i < n; i++) {
+			System.out.println("Aluno " + (i + 1));
+			int al = entrada.nextInt();
+			entrada.nextLine();
+			Aluno aluno = new Aluno(al);
+			alunos.add(aluno);
+			
+			Curso cursoB = new Curso(aluno);
+			setCursoB.add(cursoB);
+		}
+		
+
+		System.out.println("Quantos anlunos para o curso C?: ");
+	    n = entrada.nextInt();
+		entrada.nextLine();
+		
+		Set<Curso> setCursoC = new HashSet<>();
+		for(int i = 0; i < n; i++) {
+			System.out.println("Aluno " + (i + 1));
+			int al = entrada.nextInt();
+			entrada.nextLine();
+			Aluno aluno = new Aluno(al);
+			alunos.add(aluno);
+			
+			setCursoC.add(new Curso(aluno));
+		}
+		System.out.println("Total students: " + alunos.size());
+		
+		System.out.println("Alunos curso A: ");
+		for (Curso curso : setCursoA) {
+		    System.out.println(curso.getAlunos().getNumeroId());
+		}
+		
+		System.out.println("Alunos curso B: ");
+		for (Curso curso : setCursoB) {
+		    System.out.println(curso.getAlunos().getNumeroId());
+		}
+		
+		System.out.println("Alunos curso C: ");
+		for (Curso curso : setCursoC) {
+		    System.out.println(curso.getAlunos().getNumeroId());
+		}
+
 	}
 }
